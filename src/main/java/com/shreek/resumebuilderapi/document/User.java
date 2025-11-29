@@ -27,7 +27,7 @@ public class User {
     private String verificationToken;
     private LocalDateTime verificationExpires;
 
-    //Date will be created automatically
+
     @CreatedDate
     private LocalDateTime createdAt;
 
