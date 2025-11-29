@@ -41,11 +41,13 @@ public class resume {
 
     private List<Education> education;
 
-    private List<Skill> skill;
+    private List<Skill> skills;
 
-    private List<Project> project;
+    private List<Project> projects;
 
-    private List<Language> language;
+    private List<Certification> certifications;
+
+    private List<Language> languages;
 
     private List<String> interests;
 
