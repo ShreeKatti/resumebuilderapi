@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY target/resumebuilderapi-0.0.1-SNAPSHOT.jar resumebuilderapi.jar
 EXPOSE 9090
