@@ -6,7 +6,6 @@ com\shreek\resumebuilderapi\document\resume$Template.class
 com\shreek\resumebuilderapi\service\ResumeService.class
 com\shreek\resumebuilderapi\service\AuthService.class
 com\shreek\resumebuilderapi\controller\ResumeController.class
-com\shreek\resumebuilderapi\exception\GlobalExceptionHandler.class
 com\shreek\resumebuilderapi\controller\PaymentController.class
 com\shreek\resumebuilderapi\ResumebuilderapiApplication.class
 com\shreek\resumebuilderapi\config\CloudinaryConfig.class
