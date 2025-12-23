@@ -46,26 +46,58 @@ public class AuthService {
 
     }
 
-    private void sendVerificationEmail(User newUser) {
-        log.info("Inside AuthService sendVerificationEmail(): {}", newUser);
-        try{
-            String link = appBaseUrl+"/api/auth/verify-email?token="+newUser.getVerificationToken();
-            String html="<div style='font-family:sans-serif'>"+
-                    "<h2>Verify your Email</h2>"+
-                    "<p>Hi"+newUser.getName()+",Please confirm your Email to activate your account.</p>"+
-                    "<p><a href='"+link
-                    +"' style='display:inline-block;padding:10px 16px;background:#6366f1;color:#fff;border-radius:6px;text-decoration:none'>Verify Email</a></p>"
-                    +
-                    "<p>Or copy this Link :"+link+"</p>"+
-                    "<p>This link expires in 24 hours.</p>"+
-                    "</div>";
-            emailService.sendHtmlEmail(newUser.getEmail(), "Verify you email", html);
-        }catch(Exception e){
-            log.error("Exception occured at sendVerificationEmail() :{}",e.getMessage());
-            throw new RuntimeException("Error sending verification email"+e.getMessage());
+    private void sendVerificationEmail(User user) {
 
-        }
+        log.info("Inside AuthService sendVerificationEmail(): {}", user.getEmail());
+
+        String verificationLink =
+                appBaseUrl + "/api/auth/verify-email?token=" + user.getVerificationToken();
+
+        String html =
+                "<!DOCTYPE html>"
+                        + "<html>"
+                        + "<body style='margin:0;padding:0;background:#f4f6f8;'>"
+
+                        + "<table width='100%' cellpadding='0' cellspacing='0' style='padding:20px;'>"
+                        + "<tr><td align='center'>"
+
+                        + "<table style='max-width:600px;background:#ffffff;border-radius:10px;"
+                        + "box-shadow:0 4px 12px rgba(0,0,0,0.08);font-family:Arial;'>"
+
+                        + "<tr><td style='padding:24px;background:#0d6efd;color:#fff;"
+                        + "text-align:center;border-radius:10px 10px 0 0;'>"
+                        + "<h2>CTRL + CV</h2>"
+                        + "</td></tr>"
+
+                        + "<tr><td style='padding:30px;color:#333;font-size:14px;'>"
+                        + "<p>Hello <b>" + user.getName() + "</b>,</p>"
+                        + "<p>Please verify your email address to activate your account.</p>"
+
+                        + "<div style='text-align:center;margin:30px 0;'>"
+                        + "<a href='" + verificationLink + "' "
+                        + "style='background:#0d6efd;color:#fff;padding:12px 24px;"
+                        + "text-decoration:none;border-radius:6px;'>"
+                        + "Verify Email</a>"
+                        + "</div>"
+
+                        + "<p style='font-size:12px;color:#777;'>"
+                        + "This link expires in 24 hours.</p>"
+                        + "</td></tr>"
+
+                        + "<tr><td style='padding:16px;text-align:center;font-size:12px;"
+                        + "color:#999;background:#fafafa;border-radius:0 0 10px 10px;'>"
+                        + "© 2025 CTRL + CV</td></tr>"
+
+                        + "</table></td></tr></table>"
+                        + "</body></html>";
+
+        emailService.sendEmail(
+                user.getEmail(),
+                "Verify your email",
+                html
+        );
     }
+
 
     private AuthResponse toResponse(User newUser){
         return AuthResponse.builder()
